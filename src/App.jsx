@@ -11,6 +11,8 @@ import './Components/MainScreen.css';
 import './Components/SubScreen.css';
 import './Components/SetScreen.css';
 
+import './Button.css';
+
 function App() {
   const [activePage, setActivePage] = useState('title');
   const [date, setDate] = useState(null);

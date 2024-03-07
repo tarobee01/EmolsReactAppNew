@@ -29,7 +29,7 @@ const SubScreen = ({ setActivePage, date }) => {
     context.fillStyle = color;
     context.fill();
 
-    const textRadiusOuter = radius * 1.1;
+    const textRadiusOuter = radius * 0.9;
     const textRadiusInner = radius * 0.7;
 
     const textXStart = radius + textRadiusOuter * Math.cos(startAngle);
@@ -88,14 +88,19 @@ const SubScreen = ({ setActivePage, date }) => {
       if (hour < 0) hour += 24;
       if (hour > 24) hour -= 24;
 
+      // 弧の幅を保つために、endtime-starttimeを計算
+      const timeDifference = endTime - startTime;
+
       // ドラッグしている位置によって開始時間または終了時間を更新
-      if (hour >= startTime && hour <= endTime) {
+      if (hour >= startTime && hour <= 24 - timeDifference) {
         setStartTime(hour);
+        setEndTime(hour + timeDifference);
       } else if (hour < startTime) {
         setStartTime(hour);
-        setEndTime(startTime);
+        setEndTime(hour + timeDifference);
       } else {
         setEndTime(hour);
+        setStartTime(hour - timeDifference);
       }
     }
   };
