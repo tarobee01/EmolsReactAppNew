@@ -1,49 +1,50 @@
 import React from 'react';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import moment from 'moment';
+import 'moment/locale/ja';
 
-import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import listPlugin from '@fullcalendar/list';
-import jaLocale from '@fullcalendar/core/locales/ja';
+const localizer = momentLocalizer(moment);
 
-const MainScreen = ({ setActivePage, setDate }) => {
+const MyCalendar = ({ setActivePage, setDate }) => {
+  const events = [
+    {
+      title: 'イベント1',
+      date: new Date('2024-03-14'),
+    },
+    {
+      title: 'イベント2',
+      date: new Date('2024-03-15'),
+    },
+    {
+      title: 'イベント3',
+      date: new Date('2024-03-17'),
+    },
+  ];
 
-  const renderDayCellContent = (arg) => {
-    const year = arg.date.getFullYear();
-    const month = (arg.date.getMonth() + 1).toString().padStart(2, '0');
-    const day = arg.date.getDate().toString().padStart(2, '0');
-    const dateStr = `${year}-${month}-${day}`;
-
-    return (
-      <div>
-        {arg.dayNumberText}
-        <button onClick={() => { setDate(dateStr); setActivePage('sub'); }}>click</button>
-      </div>
-    );
+  const handleDateClick = (event) => {
+    const dateStr = moment(event.date).format('YYYY-MM-DD');
+    setDate(dateStr);
+    setActivePage('sub');
   };
 
   return (
-    <div>
-      <h1>ここはメイン画面です</h1>
-
-      <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin, listPlugin]}
-        initialView="dayGridMonth"
-        locales={[jaLocale]}
-        locale='ja'
-        headerToolbar={{
-          left: 'prev,next today',
-          center: 'title',
-          right: '',
-        }}
-        events={[
-          {title:'eventを', start: '2024-03-14'},
-          {title:'こんな感じで追加できます', start: '2024-03-15', end: '2024-03-17'}
-        ]}
-        dayCellContent={renderDayCellContent}
-      />
+    <div className="calendar-container">
+      <div className="calendar-wrapper">
+        <Calendar
+          localizer={localizer}
+          events={events}
+          views={['month']}
+          defaultView="month"
+          startAccessor="date"
+          endAccessor="date"
+          style={{ backgroundColor: '#f0f0f0' }}
+          onSelectEvent={handleDateClick}
+          selectable="ignoreEvents"
+        />
+      </div>
     </div>
   );
 };
 
-export default MainScreen;
+export default MyCalendar;

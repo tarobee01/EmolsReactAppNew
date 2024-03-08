@@ -1,0 +1,13 @@
+.calendar-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100vw;
+  height: 100vh;
+}
+
+.calendar-wrapper {
+  width: 100vw;
+  height: 60vh;
+  margin-top: 5vh;
+}

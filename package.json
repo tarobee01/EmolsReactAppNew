@@ -10,11 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fullcalendar/daygrid": "^6.1.11",
-    "@fullcalendar/list": "^6.1.11",
-    "@fullcalendar/react": "^6.1.11",
-    "@fullcalendar/timegrid": "^6.1.11",
     "react": "^18.2.0",
+    "react-big-calendar": "^1.11.1",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {

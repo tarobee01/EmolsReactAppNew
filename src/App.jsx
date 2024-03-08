@@ -11,6 +11,7 @@ import './Components/MainScreen.css';
 import './Components/SubScreen.css';
 import './Components/SetScreen.css';
 
+import './App.css';
 import './Button.css';
 
 function App() {
