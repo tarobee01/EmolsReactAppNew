@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { getFirestore, collection, query, where, deleteDoc, getDocs } from 'firebase/firestore'; 
 
 const SubScreen = ({ dateData }) => {
   const canvasRef = useRef(null);
@@ -140,18 +141,51 @@ const SubScreen = ({ dateData }) => {
     };
   }, [handleTouchStart, handleTouchMove, handleTouchEnd]);
 
+  const handleDeleteEvent = async (index) => {
+    const titleToDelete = dateData[index].title;
+
+    const db = getFirestore();
+    const eventsCollection = collection(db, 'events');
+    const q = query(eventsCollection, where('title', '==', titleToDelete));
+
+    try {
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        deleteDoc(doc.ref);
+      });
+    } catch (e) {
+      console.error('Error deleting event:', e);
+    }
+  };
+
   return (
     <div>
       <h1>ここはサブ画面です</h1>
       <h3>選択された日付: {date}</h3>
       <canvas ref={canvasRef} width={200} height={200} />
 
-      {dateData.map((item, index) => (
-        <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '-20px' }}>
-          <h3>・{item.startTime}:00~{item.endTime}:00 : {item.title}</h3>
-          <div style={{ width: '20px', height: '20px', backgroundColor: item.color, marginLeft: '10px', border: '1px solid black' }}></div>
-        </div>
-      ))}
+      <div style={{ overflowY: 'auto', height: '240px', margin: '20px 0', border: '1px solid black' }}>
+        {dateData.map((item, index) => (
+          <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '-20px' }}>
+            <h3>・{item.startTime}:00~{item.endTime}:00 : {item.title}</h3>
+            <div style={{ width: '20px', height: '20px', backgroundColor: item.color, marginLeft: '10px', border: '1px solid black' }}></div>
+            <div 
+              style={{ 
+                textAlign: 'center',
+                width: '20px', 
+                height: '20px', 
+                backgroundColor: '#ffffff', 
+                marginLeft: '10px', 
+                border: '1px solid black', 
+                cursor: 'pointer'
+              }}
+              onClick={() => handleDeleteEvent(index)}
+            >
+              ×
+            </div>
+          </div>
+        ))}
+      </div>
 
     </div>
   );

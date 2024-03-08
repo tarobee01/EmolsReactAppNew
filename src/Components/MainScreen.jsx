@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 import 'moment/locale/ja';
 import CustomDayProps from './Color';
+import { getFirestore, collection, addDoc } from 'firebase/firestore'; 
 
 moment.updateLocale('ja', {
   week: {
@@ -16,8 +17,8 @@ moment.updateLocale('ja', {
 
 const localizer = momentLocalizer(moment);
 
-const MainScreen = ({ setActivePage, setDateData }) => {
-  const events = [
+const MainScreen = ({ setActivePage, setDateData, eventData, allEventData }) => {
+  const [events, setEvents] = useState([
     {
       title: '遊び',
       date: '2024-03-14',
@@ -46,7 +47,15 @@ const MainScreen = ({ setActivePage, setDateData }) => {
       endTime: 13,
       color: '#0077ff'
     },
-  ];
+    ...allEventData
+  ]);
+
+  const addEvent = () => {
+    const db = getFirestore();
+    const eventsCollection = collection(db, 'events');
+    addDoc(eventsCollection, ...eventData);
+    setEvents([...events, ...eventData]);
+  };
 
   const eventsByDate = events.reduce((groupedEvents, event) => {
     const dateStr = moment(event.date).format('YYYY-MM-DD');
@@ -104,24 +113,29 @@ const MainScreen = ({ setActivePage, setDateData }) => {
   };
 
   return (
-    <div className="calendar-container">
-      <div className="calendar-wrapper">
-        <Calendar
-          localizer={localizer}
-          events={Object.values(eventsByDate)}
-          views={['month']}
-          defaultView="month"
-          startAccessor="date"
-          endAccessor="date"
-          style={{ backgroundColor: '#f0f0f0' }}
-          onSelectEvent={handleDateClick}
-          selectable="ignoreEvents"
-          dayPropGetter={dayPropGetter}
-          components={{
-            event: CustomEventIndicator,
-            toolbar: customToolbar,
-          }}
-        />
+    <div>
+      <div className="event-container">
+        <button onClick={addEvent}>イベントを追加する</button>
+      </div>
+      <div className="calendar-container">
+        <div className="calendar-wrapper">
+          <Calendar
+            localizer={localizer}
+            events={Object.values(eventsByDate)}
+            views={['month']}
+            defaultView="month"
+            startAccessor="date"
+            endAccessor="date"
+            style={{ backgroundColor: '#f0f0f0' }}
+            onSelectEvent={handleDateClick}
+            selectable="ignoreEvents"
+            dayPropGetter={dayPropGetter}
+            components={{
+              event: CustomEventIndicator,
+              toolbar: customToolbar,
+            }}
+          />
+        </div>
       </div>
     </div>
   );

@@ -30,3 +30,8 @@
 .custom-toolbar .current-date {
   margin-left: 10px;
 }
+
+.event-container {
+  position: fixed;
+  top: 70%;
+}
