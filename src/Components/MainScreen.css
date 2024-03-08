@@ -8,6 +8,25 @@
 
 .calendar-wrapper {
   width: 100vw;
-  height: 60vh;
+  height: 70vh;
   margin-top: 5vh;
+}
+
+.custom-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.custom-toolbar .left-section {
+  display: flex;
+  align-items: center;
+}
+
+.custom-toolbar .right-section {
+  display: flex;
+}
+
+.custom-toolbar .current-date {
+  margin-left: 10px;
 }

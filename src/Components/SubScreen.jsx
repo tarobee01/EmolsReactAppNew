@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const SubScreen = ({ setActivePage, date }) => {
+const SubScreen = ({ setActivePage, dateData }) => {
   const canvasRef = useRef(null);
-  const [startTime, setStartTime] = useState(8);
-  const [endTime, setEndTime] = useState(10);
-  const [color, setColor] = useState('#e6c229');
-  const [title, setTitle] = useState('遊び');
+  const [date, setDate] = useState(dateData[0].date);
+  const [startTime, setStartTime] = useState(dateData[0].startTime);
+  const [endTime, setEndTime] = useState(dateData[0].endTime);
+  const [color, setColor] = useState(dateData[0].color);
+  const [title, setTitle] = useState(dateData[0].title);
   const [dragging, setDragging] = useState(false);
 
   useEffect(() => {
