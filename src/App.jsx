@@ -62,7 +62,7 @@ function App() {
   return (
     <>
       {activePage !== 'title' && <Bar activePage={activePage} setActivePage={setActivePage} showPallet={showPallet} setShowPallet={setShowPallet} />}
-      {activePage === 'main' && <Pallet showPalette={showPallet} />}
+      {activePage === 'main' && <Pallet showPallet={showPallet} eventData={eventData} setEventData={setEventData} />}
 
       {activePage === 'title' && <Title setActivePage={setActivePage} />}
       {activePage === 'main' && <Main setActivePage={setActivePage} setDateData={setDateData} eventData={eventData} allEventData={allEventData} setAllEventData={setAllEventData} />}

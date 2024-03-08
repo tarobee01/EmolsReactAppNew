@@ -164,7 +164,7 @@ const SubScreen = ({ dateData }) => {
       <h3>選択された日付: {date}</h3>
       <canvas ref={canvasRef} width={200} height={200} />
 
-      <div style={{ overflowY: 'auto', height: '240px', margin: '20px 0', border: '1px solid black' }}>
+      <div style={{ overflowY: 'auto', height: '210px', margin: '20px 0', border: '5px solid #ff000033' }}>
         {dateData.map((item, index) => (
           <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '-20px' }}>
             <h3>・{item.startTime}:00~{item.endTime}:00 : {item.title}</h3>
