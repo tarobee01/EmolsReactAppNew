@@ -24,8 +24,8 @@ function App() {
 
       {activePage === 'title' && <Title setActivePage={setActivePage} />}
       {activePage === 'main' && <Main setActivePage={setActivePage} setDateData={setDateData} />}
-      {activePage === 'sub' && <Sub setActivePage={setActivePage} dateData={dateData} />}
-      {activePage === 'set' && <Set setActivePage={setActivePage} />}
+      {activePage === 'sub' && <Sub dateData={dateData} />}
+      {activePage === 'set' && <Set />}
     </>
   );
 }

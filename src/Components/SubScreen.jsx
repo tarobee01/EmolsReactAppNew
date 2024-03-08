@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const SubScreen = ({ setActivePage, dateData }) => {
+const SubScreen = ({ dateData }) => {
   const canvasRef = useRef(null);
   const [date, setDate] = useState(dateData[0].date);
   const [startTime, setStartTime] = useState(dateData[0].startTime);
@@ -99,6 +99,17 @@ const SubScreen = ({ setActivePage, dateData }) => {
         setEndTime(hour);
         setStartTime(hour - timeDifference);
       }
+
+      if (hour >= dateData[0].startTime && hour <= 24 - timeDifference) {
+        dateData[0].startTime = hour;
+        dateData[0].endTime = hour + timeDifference;
+      } else if (hour < dateData[0].startTime) {
+        dateData[0].startTime = hour;
+        dateData[0].endTime = hour + timeDifference;
+      } else {
+        dateData[0].endTime = hour;
+        dateData[0].startTime = hour - timeDifference;
+      }
     }
   };
 
@@ -134,8 +145,14 @@ const SubScreen = ({ setActivePage, dateData }) => {
       <h1>ここはサブ画面です</h1>
       <h3>選択された日付: {date}</h3>
       <canvas ref={canvasRef} width={200} height={200} />
-      <br />
-      <button onClick={() => setActivePage('main')}>もどる</button>
+
+      {dateData.map((item, index) => (
+        <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '-20px' }}>
+          <h3>・{item.startTime}:00~{item.endTime}:00 : {item.title}</h3>
+          <div style={{ width: '20px', height: '20px', backgroundColor: item.color, marginLeft: '10px', border: '1px solid black' }}></div>
+        </div>
+      ))}
+
     </div>
   );
 };

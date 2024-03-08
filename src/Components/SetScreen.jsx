@@ -1,10 +1,9 @@
 import React from 'react';
 
-const SetScreen = ({ setActivePage }) => {
+const SetScreen = () => {
   return (
     <div>
       <h1>設定画面</h1>
-      <button onClick={() => setActivePage('main')}>もどる</button>
     </div>
   );
 };

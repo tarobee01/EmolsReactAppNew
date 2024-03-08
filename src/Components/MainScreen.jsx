@@ -3,6 +3,7 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 import 'moment/locale/ja';
+import CustomDayProps from './Color';
 
 moment.updateLocale('ja', {
   week: {
@@ -15,35 +16,35 @@ moment.updateLocale('ja', {
 
 const localizer = momentLocalizer(moment);
 
-const MyCalendar = ({ setActivePage, setDateData }) => {
+const MainScreen = ({ setActivePage, setDateData }) => {
   const events = [
     {
       title: '遊び',
       date: '2024-03-14',
       startTime: 6,
       endTime: 8,
-      color: '#eeaaee'
+      color: '#ffff00'
     },
     {
       title: '洗濯',
       date: '2024-03-15',
       startTime: 8,
       endTime: 10,
-      color: '#ee6aee'
+      color: '#0077ff'
     },
     {
       title: '掃除',
       date: '2024-03-17',
       startTime: 7,
       endTime: 14,
-      color: '#eea99e'
+      color: '#ffff00'
     },
     {
       title: '出勤',
       date: '2024-03-17',
       startTime: 9,
       endTime: 13,
-      color: '#e66aee'
+      color: '#0077ff'
     },
   ];
 
@@ -55,14 +56,7 @@ const MyCalendar = ({ setActivePage, setDateData }) => {
     return groupedEvents;
   }, {});
 
-  const customDayPropGetter = date => {
-    const dateStr = moment(date).format('YYYY-MM-DD');
-    const eventCount = events.filter(event => moment(event.date).format('YYYY-MM-DD') === dateStr).length;
-
-    return {
-      className: eventCount > 0 ? 'has-events' : '',
-    };
-  };
+  const { dayPropGetter } = CustomDayProps({ events });
 
   const handleDateClick = (date) => {
     const dateEvents = events.filter(event => moment(event.date).format('YYYY-MM-DD') === moment(date.date).format('YYYY-MM-DD'));
@@ -71,8 +65,10 @@ const MyCalendar = ({ setActivePage, setDateData }) => {
   };
 
   const CustomEventIndicator = ({ event }) => (
-    <div className="event-indicator-container">
-      <span className="event-indicator">{events.filter(e => moment(e.date).format('YYYY-MM-DD') === moment(event.date).format('YYYY-MM-DD')).length}</span>
+    <div style={{ backgroundColor: '#00000000' }}>
+      <span>
+        {events.filter(e => moment(e.date).format('YYYY-MM-DD') === moment(event.date).format('YYYY-MM-DD')).length}
+      </span>
     </div>
   );
 
@@ -120,7 +116,7 @@ const MyCalendar = ({ setActivePage, setDateData }) => {
           style={{ backgroundColor: '#f0f0f0' }}
           onSelectEvent={handleDateClick}
           selectable="ignoreEvents"
-          dayPropGetter={customDayPropGetter}
+          dayPropGetter={dayPropGetter}
           components={{
             event: CustomEventIndicator,
             toolbar: customToolbar,
@@ -131,4 +127,4 @@ const MyCalendar = ({ setActivePage, setDateData }) => {
   );
 };
 
-export default MyCalendar;
+export default MainScreen;
