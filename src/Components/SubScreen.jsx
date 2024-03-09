@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getFirestore, collection, query, where, deleteDoc, getDocs } from 'firebase/firestore'; 
 
-const SubScreen = ({ dateData }) => {
+const SubScreen = ({ dateData, setDateData, setActivePage }) => {
   const canvasRef = useRef(null);
-  const [date, setDate] = useState(dateData[0].date);
-  const [startTime, setStartTime] = useState(dateData[0].startTime);
-  const [endTime, setEndTime] = useState(dateData[0].endTime);
-  const [color, setColor] = useState(dateData[0].color);
-  const [title, setTitle] = useState(dateData[0].title);
+  const [date, setDate] = useState(dateData.length > 0 ? dateData[0].date : "");
+  const [startTime, setStartTime] = useState(dateData.length > 0 ? dateData[0].startTime : 0);
+  const [endTime, setEndTime] = useState(dateData.length > 0 ? dateData[0].endTime : 0);
+  const [color, setColor] = useState(dateData.length > 0 ? dateData[0].color : "");
+  const [title, setTitle] = useState(dateData.length > 0 ? dateData[0].title : "");
   const [dragging, setDragging] = useState(false);
 
   useEffect(() => {
@@ -143,19 +143,37 @@ const SubScreen = ({ dateData }) => {
 
   const handleDeleteEvent = async (index) => {
     const titleToDelete = dateData[index].title;
+    const startTimeToDelete = dateData[index].startTime;
+    const endTimeToDelete = dateData[index].endTime;
 
     const db = getFirestore();
     const eventsCollection = collection(db, 'events');
-    const q = query(eventsCollection, where('title', '==', titleToDelete));
+    const q = query(
+      eventsCollection,
+      where('title', '==', titleToDelete),
+      where('startTime', '==', startTimeToDelete),
+      where('endTime', '==', endTimeToDelete)
+    );
 
     try {
       const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        deleteDoc(doc.ref);
+      querySnapshot.forEach(async (doc) => {
+        await deleteDoc(doc.ref);
+        const newData = [...dateData];
+        newData.splice(index, 1);
+        setDateData(newData); // Assuming setDateData is a function to update dateData state
+        if (newData.length === 0) {
+          setActivePage('main');
+        }
       });
     } catch (e) {
       console.error('Error deleting event:', e);
     }
+  };
+
+  // ソート用の関数
+  const sortByStartTime = (a, b) => {
+    return a.startTime - b.startTime;
   };
 
   return (
@@ -165,7 +183,8 @@ const SubScreen = ({ dateData }) => {
       <canvas ref={canvasRef} width={200} height={200} />
 
       <div style={{ overflowY: 'auto', height: '210px', margin: '20px 0', border: '5px solid #ff000033' }}>
-        {dateData.map((item, index) => (
+        {/* startTime でソートして表示 */}
+        {dateData.sort(sortByStartTime).map((item, index) => (
           <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '-20px' }}>
             <h3>・{item.startTime}:00~{item.endTime}:00 : {item.title}</h3>
             <div style={{ width: '20px', height: '20px', backgroundColor: item.color, marginLeft: '10px', border: '1px solid black' }}></div>

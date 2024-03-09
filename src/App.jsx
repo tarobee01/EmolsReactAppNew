@@ -72,7 +72,7 @@ function App() {
 
       {activePage === 'title' && <Title setActivePage={setActivePage} />}
       {activePage === 'main' && <Main setActivePage={setActivePage} setDateData={setDateData} eventData={eventData} setEventData={setEventData} allEventData={allEventData} setAllEventData={setAllEventData} />}
-      {activePage === 'sub' && <Sub dateData={dateData} />}
+      {activePage === 'sub' && <Sub dateData={dateData} setDateData={setDateData} setActivePage={setActivePage} />}
       {activePage === 'set' && <Set eventData={eventData} setEventData={setEventData} />}
     </>
   );
