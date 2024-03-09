@@ -63,7 +63,7 @@ function App() {
       };
       setEventData([newEvent]);
     }
-  }, [eventData]);
+  }, []);
 
   return (
     <>
