@@ -6,34 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>スポイトカレンダー</title>
     <style>
-      #container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        background-color: #ffff00aa;
-        z-index: -1;
-      }
-      #video-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        z-index: -2;
+      body {
+        background: linear-gradient(to right, white 0%, white 50%, #ADD8E6 50%, #ADD8E6 100%);
+        margin: 0;
+        padding: 0;
+        height: 100vh;
       }
     </style>
   </head>
   <body>
-    <div id="container"></div>
-    <div id="video-container">
-      <video autoplay muted loop>
-        <source src="pexels.mp4" type="video/mp4">
-      </video>
-    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
