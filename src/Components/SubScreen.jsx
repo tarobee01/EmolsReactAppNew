@@ -161,7 +161,7 @@ const SubScreen = ({ dateData, setDateData, setActivePage }) => {
         await deleteDoc(doc.ref);
         const newData = [...dateData];
         newData.splice(index, 1);
-        setDateData(newData); // Assuming setDateData is a function to update dateData state
+        setDateData(newData);
         if (newData.length === 0) {
           setActivePage('main');
         }
@@ -171,7 +171,6 @@ const SubScreen = ({ dateData, setDateData, setActivePage }) => {
     }
   };
 
-  // ソート用の関数
   const sortByStartTime = (a, b) => {
     return a.startTime - b.startTime;
   };
