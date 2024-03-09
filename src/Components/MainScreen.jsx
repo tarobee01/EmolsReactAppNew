@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
@@ -17,44 +17,29 @@ moment.updateLocale('ja', {
 
 const localizer = momentLocalizer(moment);
 
-const MainScreen = ({ setActivePage, setDateData, eventData, allEventData }) => {
-  const [events, setEvents] = useState([
-    {
-      title: '遊び',
-      date: '2024-03-14',
-      startTime: 6,
-      endTime: 8,
-      color: '#ffff00'
-    },
-    {
-      title: '洗濯',
-      date: '2024-03-15',
-      startTime: 8,
-      endTime: 10,
-      color: '#0077ff'
-    },
-    {
-      title: '掃除',
-      date: '2024-03-17',
-      startTime: 7,
-      endTime: 14,
-      color: '#ffff00'
-    },
-    {
-      title: '出勤',
-      date: '2024-03-17',
-      startTime: 9,
-      endTime: 13,
-      color: '#0077ff'
-    },
-    ...allEventData
-  ]);
+const MainScreen = ({ setActivePage, setDateData, eventData, setEventData, allEventData, setAllEventData }) => {
+  const [newStartDate, setNewStartDate] = useState({
+    year: moment().year(),
+    month: moment().month() + 1,
+    day: moment().date(),
+  });
+  const [newStartTime, setNewStartTime] = useState(8);
+  const [newEndTime, setNewEndTime] = useState(11);
+
+  const [events, setEvents] = useState([...allEventData]);
 
   const addEvent = () => {
     const db = getFirestore();
     const eventsCollection = collection(db, 'events');
-    addDoc(eventsCollection, ...eventData);
-    setEvents([...events, ...eventData]);
+    const newEvent = {
+      title: '残業',
+      date: moment(`${newStartDate.year}-${newStartDate.month}-${newStartDate.day}`, 'YYYY-MM-DD').format('YYYY-MM-DD'),
+      startTime: newStartTime,
+      endTime: newEndTime,
+      color: '#ff0000' // 任意の色
+    };
+    addDoc(eventsCollection, newEvent);
+    setEvents([...events, newEvent]);
   };
 
   const eventsByDate = events.reduce((groupedEvents, event) => {
@@ -116,6 +101,36 @@ const MainScreen = ({ setActivePage, setDateData, eventData, allEventData }) => 
     <div>
       <div className="event-container">
         <button onClick={addEvent}>イベントを追加する</button>
+        <div>
+          <label>開始日付</label>
+          <input
+            type="number"
+            value={newStartDate.year}
+            onChange={(e) => setNewStartDate({ ...newStartDate, year: parseInt(e.target.value) })}
+          />
+          <input
+            type="number"
+            value={newStartDate.month}
+            onChange={(e) => setNewStartDate({ ...newStartDate, month: parseInt(e.target.value) })}
+          />
+          <input
+            type="number"
+            value={newStartDate.day}
+            onChange={(e) => setNewStartDate({ ...newStartDate, day: parseInt(e.target.value) })}
+          />
+          <label>開始時間</label>
+          <input
+            type="number"
+            value={newStartTime}
+            onChange={(e) => setNewStartTime(parseInt(e.target.value))}
+          />
+          <label>終了時間</label>
+          <input
+            type="number"
+            value={newEndTime}
+            onChange={(e) => setNewEndTime(parseInt(e.target.value))}
+          />
+        </div>
       </div>
       <div className="calendar-container">
         <div className="calendar-wrapper">

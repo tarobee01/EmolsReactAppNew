@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Palette({ showPallet, eventData, setEventData }) {
+function Palette({ showPallet, setEventData }) {
   const [selectedColor, setSelectedColor] = useState('');
   const [palette, setPalette] = useState([
     { color: '#0077FF', title: '講義' },

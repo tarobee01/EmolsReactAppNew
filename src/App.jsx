@@ -62,10 +62,10 @@ function App() {
   return (
     <>
       {activePage !== 'title' && <Bar activePage={activePage} setActivePage={setActivePage} showPallet={showPallet} setShowPallet={setShowPallet} />}
-      {activePage === 'main' && <Pallet showPallet={showPallet} eventData={eventData} setEventData={setEventData} />}
+      {activePage === 'main' && <Pallet showPallet={showPallet} setEventData={setEventData} />}
 
       {activePage === 'title' && <Title setActivePage={setActivePage} />}
-      {activePage === 'main' && <Main setActivePage={setActivePage} setDateData={setDateData} eventData={eventData} allEventData={allEventData} setAllEventData={setAllEventData} />}
+      {activePage === 'main' && <Main setActivePage={setActivePage} setDateData={setDateData} eventData={eventData} setEventData={setEventData} allEventData={allEventData} setAllEventData={setAllEventData} />}
       {activePage === 'sub' && <Sub dateData={dateData} />}
       {activePage === 'set' && <Set eventData={eventData} setEventData={setEventData} />}
     </>
