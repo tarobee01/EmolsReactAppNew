@@ -22,14 +22,7 @@ function App() {
   const [activePage, setActivePage] = useState('title');
   const [dateData, setDateData] = useState(null);
   const [showPallet, setShowPallet] = useState(false);
-  const newEvent = {
-    title: '出勤',
-    date: '2024-03-20',
-    startTime: 10,
-    endTime: 12,
-    color: '#ff0000'
-  };
-  const [eventData, setEventData] = useState([newEvent]);
+  const [eventData, setEventData] = useState([]);
   const [allEventData, setAllEventData] = useState(null);
 
   useEffect(() => {
@@ -58,6 +51,19 @@ function App() {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (eventData.length > 0) {
+      const newEvent = {
+        title: eventData[0].title,
+        date: eventData[0].date,
+        startTime: eventData[0].startTime,
+        endTime: eventData[0].endTime,
+        color: eventData[0].color
+      };
+      setEventData([newEvent]);
+    }
+  }, [eventData]);
 
   return (
     <>
