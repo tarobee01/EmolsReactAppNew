@@ -1,0 +1,17 @@
+@font-face {
+  font-family: keifont;
+  src: url('/keifont.ttf') format('truetype');
+}
+
+body, input, button {
+  font-family: keifont, Arial, sans-serif;
+}
+
+@font-face {
+  font-family: chikara;
+  src: url('/851chikara.ttf') format('truetype');
+}
+
+h4 {
+  font-family: chikara, Arial, sans-serif;
+}

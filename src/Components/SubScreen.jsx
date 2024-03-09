@@ -177,8 +177,7 @@ const SubScreen = ({ dateData, setDateData, setActivePage }) => {
 
   return (
     <div>
-      <h1>ここはサブ画面です</h1>
-      <h3>選択された日付: {date}</h3>
+      <h3>{date}</h3>
       <canvas ref={canvasRef} width={200} height={200} />
 
       <div style={{ overflowY: 'auto', height: '210px', margin: '20px 0', border: '5px solid #ff000033' }}>

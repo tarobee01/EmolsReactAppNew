@@ -157,7 +157,7 @@ const MainScreen = ({ setActivePage, setDateData, eventData, setEventData, allEv
       <div className="custom-toolbar">
         <div className="left-section">
           <button onClick={goToToday}>今日</button>
-          <div className="current-date">{`${currentYear}年${currentMonth}月`}</div>
+          <h3 className="current-date">{`${currentYear}年${currentMonth}月`}</h3>
         </div>
         <div className="right-section">
           <button onClick={goToPrev}>前月</button>

@@ -15,6 +15,7 @@ import './Components/Pallet.css';
 
 import './App.css';
 import './Button.css';
+import './Font.css';
 
 import { getDocs, getFirestore, collection, onSnapshot } from 'firebase/firestore';
 
