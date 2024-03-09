@@ -8,7 +8,7 @@
   padding: 5px;
   border-radius: 8px;
   background-color: #FEFEFA;
-  box-shadow: 4px 8px rgba(0, 0, 0, 0.5);
+  box-shadow: 6px 8px rgba(0, 0, 0, 0.5);
   backdrop-filter: 'blur(10px)';
 }
 

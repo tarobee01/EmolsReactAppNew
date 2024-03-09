@@ -7,10 +7,8 @@ function Palette({ showPallet, setEventData }) {
     { color: '#0077FF', title: '講義' },
     { color: '#FFFF00', title: '研究' },
   ]);
-  const [showAddColorForm, setShowAddColorForm] = useState(false);
   const [newColor, setNewColor] = useState('#ffffff');
   const [newColorText, setNewColorText] = useState('');
-  const [selectedText, setSelectedText] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const addColorToPalette = () => {
@@ -46,10 +44,8 @@ function Palette({ showPallet, setEventData }) {
     if (selectedColor === color) {
       // 同じ色を再度選択した場合、選択を解除
       setSelectedColor('');
-      setSelectedText('');
     } else {
       setSelectedColor(color);
-      setSelectedText(title);
     }
     const newEvent = {
       title: title,
@@ -66,13 +62,6 @@ function Palette({ showPallet, setEventData }) {
       {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
       {showPallet && (
         <div className="palette-container">
-          {showAddColorForm && (
-            <div className="add-color-form">
-              <input type="color" value={newColor} onChange={(e) => setNewColor(e.target.value)} />
-              <input type="text" value={newColorText} onChange={(e) => setNewColorText(e.target.value)} placeholder="名前を入力して下さい..." />
-              <button onClick={addColorToPalette}>保存</button>
-            </div>
-          )}
           <div className="color-palette">
             {palette.map((item, index) => (
               <div key={index} className="color-item">
@@ -80,7 +69,7 @@ function Palette({ showPallet, setEventData }) {
                   style={{
                     backgroundColor: item.color,
                     width: '55px',
-                    height: '35px',
+                    height: '50px',
                     textAlign: 'center',
                     border: item.color === selectedColor ? '3px solid black' : 'none', // 選択された要素の枠線を太くする
                     borderRadius: '10px 10px 0 0',
@@ -100,10 +89,9 @@ function Palette({ showPallet, setEventData }) {
                       position: 'absolute',
                       bottom: '0',
                       right: '0',
-                      color: '#333333',
-                      fontSize: '10px',
-                      fontWeight: 'bold',
-                      fontFamily: 'Arial, sans-serif',
+                      color: '#444444',
+                      fontSize: '20px',
+                      fontFamily: 'keifont',
                       padding: '2px', // テキストとオブジェクトの境界線との間に余白を設定
                     }}
                   >
