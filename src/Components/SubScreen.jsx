@@ -172,12 +172,14 @@ const SubScreen = ({ dateData, setDateData, setActivePage }) => {
         ))}
       </div>
 
+
+
       {selectedEvent && (
-        <div style={{ margin: '10px 0' }}>
-          <input type="text" value={editedTitle} onChange={(e) => setEditedTitle(e.target.value)} />
-          <input type="number" value={editedStartTime} onChange={(e) => setEditedStartTime(parseInt(e.target.value))} />
-          <input type="number" value={editedEndTime} onChange={(e) => setEditedEndTime(parseInt(e.target.value))} />
-          <button onClick={handleEditEvent} style={{ marginLeft: '10px' }}>Save</button>
+        <div className="edit-event-container">
+          <input type="text" className="edit-event-input" value={editedTitle} onChange={(e) => setEditedTitle(e.target.value)} />
+          <input type="number" className="edit-event-input" value={editedStartTime} onChange={(e) => setEditedStartTime(parseInt(e.target.value))} />:00~
+          <input type="number" className="edit-event-input" value={editedEndTime} onChange={(e) => setEditedEndTime(parseInt(e.target.value))} />:00
+          <button onClick={handleEditEvent} style={{ marginLeft: '10px' }}>保存</button>
         </div>
       )}
     </div>

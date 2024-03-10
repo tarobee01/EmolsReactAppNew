@@ -1,0 +1,12 @@
+.edit-event-container {
+  margin: 10px 0;
+}
+
+.edit-event-input {
+  margin-right: 5px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 40px;
+}
