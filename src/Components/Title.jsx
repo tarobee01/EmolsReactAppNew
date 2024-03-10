@@ -4,7 +4,7 @@ import Object from './Object';
 const Title = ({ setActivePage }) => {
   return (
     <div>
-      <h1 className='title1'>スポイト<br />カレンダー</h1>
+      <h1 className='title1'>ペイント<br />カレンダー</h1>
       <h4 className='title0'>作 がれんだーまん</h4>
       <div className='title2'>
         <Object />

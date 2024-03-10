@@ -7,13 +7,12 @@ button {
   display: inline-block;
   padding: 10px 20px;
   font-size: 20px;
-  font-weight: bold;
   text-transform: uppercase;
   text-decoration: none;
   color: #fff;
-  background: linear-gradient(to right, #3498db, #002fff);
-  border: 2px solid #b99729;
-  border-radius: 5px;
+  background-color: #008abd;
+  border: 2px solid #001867;
+  border-radius: 50px;
   transition: background 0.3s, border-color 0.3s, color 0.3s;
   cursor: pointer;
 }
@@ -21,11 +20,5 @@ button {
 /* ホバー時のスタイル */
 .button:hover {
   background: linear-gradient(to right, #2980b9, #1f618d);
-  border-color: #1f618d;
-}
-
-/* アクティブ時のスタイル */
-.button:active {
-  background: linear-gradient(to right, #1f618d, #154360);
-  border-color: #c09403;
+  border-color: #003152;
 }
