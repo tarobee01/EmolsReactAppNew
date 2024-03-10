@@ -138,34 +138,43 @@ const SubScreen = ({ dateData, setDateData, setActivePage }) => {
     <div>
       <canvas ref={canvasRef} width={200} height={200} onClick={() => setSelectedEvent(null)} style={{ display: 'block', margin: '20px auto' }} />
 
-      <div style={{ overflowY: 'auto', height: '190px', margin: '5px 0', border: '5px solid #ff000033' }}>
+      <div style={{ overflowY: 'auto', height: '190px',padding: '0px 5px', margin: '5px 5px', border: '3px solid #333333', borderRadius: '2px', backgroundColor: '#f7faff' }}>
+        <p style={{ margin: '10px 0', fontSize: '18px', fontWeight: 'bold', textAlign: 'center', color: '#333333' }}>スケジュール</p>
         {dateData.map((item, index) => (
-          <div 
-            key={index} 
-            style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              marginBottom: '0px', 
-              border: selectedEvent && selectedEvent.startTime === item.startTime && selectedEvent.endTime === item.endTime ? '2px solid blue' : 'none',
+          <div
+            key={index}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: '10px',
+              border: selectedEvent && selectedEvent.startTime === item.startTime && selectedEvent.endTime === item.endTime ? '3px solid blue' : '1px solid #ddd',
               cursor: 'pointer',
-              background: selectedEvent && selectedEvent.startTime === item.startTime && selectedEvent.endTime === item.endTime ? '#ccc' : 'none',
-              padding: '5px',
+              background: selectedEvent && selectedEvent.startTime === item.startTime && selectedEvent.endTime === item.endTime ? '#e0e0e0' : '#ffffff',
+              padding: '10px',
+              borderRadius: '5px',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
             }}
             onClick={() => setSelectedEvent(item)}
           >
-            <h3 style={{ margin: '0px' }}>・{String(item.startTime).padStart(2, '0')}:00~{String(item.endTime).padStart(2, '0')}:00 : {item.title}</h3>
-            <div style={{ width: '20px', height: '20px', backgroundColor: item.color, marginLeft: '10px', border: '1px solid black' }}></div>
-            <div 
-              style={{ 
+            <h3 style={{ margin: '0px', flex: '1' }}>・{String(item.startTime).padStart(2, '0')}:00~{String(item.endTime).padStart(2, '0')}:00 : {item.title}</h3>
+            <div style={{ width: '20px', height: '20px', backgroundColor: item.color, marginLeft: '10px', border: '1px solid #ddd', borderRadius: '50%' }}></div>
+            <div
+              style={{
                 textAlign: 'center',
-                width: '20px', 
-                height: '20px', 
-                backgroundColor: '#ffffff', 
-                marginLeft: '10px', 
-                border: '1px solid black', 
-                cursor: 'pointer'
+                width: '20px',
+                height: '20px',
+                backgroundColor: '#ffffff',
+                marginLeft: '10px',
+                border: '1px solid #ddd',
+                borderRadius: '50%',
+                cursor: 'pointer',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                fontWeight: 'bold',
+                color: '#333',
               }}
-              onClick={() => handleDeleteEvent()}
+              onClick={(e) => { e.stopPropagation(); handleDeleteEvent(item); }}
             >
               ×
             </div>
@@ -174,11 +183,11 @@ const SubScreen = ({ dateData, setDateData, setActivePage }) => {
       </div>
 
       {selectedEvent && (
-        <div className="edit-event-container">
+        <div className="edit-event-container" style={{ backgroundColor: '#f0f0f0', padding: '10px', borderRadius: '5px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
           <input type="text" className="edit-event-input" value={editedTitle} onChange={(e) => setEditedTitle(e.target.value)} />
           <input type="number" className="edit-event-input" value={editedStartTime} onChange={(e) => setEditedStartTime(parseInt(e.target.value))} />:00~
           <input type="number" className="edit-event-input" value={editedEndTime} onChange={(e) => setEditedEndTime(parseInt(e.target.value))} />:00
-          <button onClick={handleEditEvent} style={{ marginLeft: '10px' }}>保存</button>
+          <button class="save-button" onClick={handleEditEvent} style={{ marginLeft: '10px' }}>Save</button>
         </div>
       )}
     </div>
